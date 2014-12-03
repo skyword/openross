@@ -105,6 +105,5 @@ _register_mode('resizecomp', _resizecomp)
 _register_mode('crop', _crop)
 _register_mode('trimresize', _trim_resize)
 
-if hasattr(settings, 'CUSTOM_IMAGE_MODES'):
-    for mode_name, mode_handler in settings.CUSTOM_IMAGE_MODES.items():
-        _register_mode(mode_name, mode_handler)
+for mode_name, mode_handler in settings.CUSTOM_IMAGE_MODES.items():
+    _register_mode(mode_name, mode_handler)

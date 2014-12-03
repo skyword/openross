@@ -49,6 +49,7 @@ for size in IMAGE_WHITELIST_SETTING:
 for key in IMAGE_WHITELIST.keys():
     IMAGE_WHITELIST[key] = set(IMAGE_WHITELIST[key])
 
+CUSTOM_IMAGE_MODES = {}
 ALLOWED_MODES = [
     'resize',
     'resizecomp',
