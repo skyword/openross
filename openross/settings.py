@@ -38,6 +38,7 @@ IMAGE_WHITELIST_SETTING = [
     ('200', '250'),
     ('1024', '768'),
 ]
+IMAGE_QUALITY = 90  # minimise artifacts but keep size down
 
 # Turn the above human readable white list into an efficient lookup table
 IMAGE_WHITELIST = {}

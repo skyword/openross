@@ -26,7 +26,8 @@ class Resizer(object):
 
         # Image should be repaged after a crop/resize
         img.page(pg.Geometry(0, 0, 0, 0))
-        img.quality(90)  # minimise artifacts but keep size down
+        if settings.IMAGE_QUALITY is not None:  # May be handled by custom mode
+            img.quality(settings.IMAGE_QUALITY)
 
         img.write(blob_out, 'JPEG')
         return blob_out.data, img.size().width(), img.size().height()
