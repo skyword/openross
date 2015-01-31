@@ -38,6 +38,7 @@ IMAGE_WHITELIST_SETTING = [
     ('200', '250'),
     ('1024', '768'),
 ]
+IMAGE_QUALITY = 90  # minimise artifacts but keep size down
 
 # Turn the above human readable white list into an efficient lookup table
 IMAGE_WHITELIST = {}
@@ -49,6 +50,7 @@ for size in IMAGE_WHITELIST_SETTING:
 for key in IMAGE_WHITELIST.keys():
     IMAGE_WHITELIST[key] = set(IMAGE_WHITELIST[key])
 
+CUSTOM_IMAGE_MODES = {}
 ALLOWED_MODES = [
     'resize',
     'resizecomp',

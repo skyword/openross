@@ -19,11 +19,12 @@ class S3Downloader(object):
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
             aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
         )
-        self.txs3conn = AWSServiceRegion(
-            access_key=settings.AWS_ACCESS_KEY_ID,
-            secret_key=settings.AWS_SECRET_ACCESS_KEY,
-            s3_uri=S3_EU_WEST[0]['endpoint'],
-        ).get_s3_client()
+        if not settings.USE_BOTO:
+            self.txs3conn = AWSServiceRegion(
+                access_key=settings.AWS_ACCESS_KEY_ID,
+                secret_key=settings.AWS_SECRET_ACCESS_KEY,
+                s3_uri=S3_EU_WEST[0]['endpoint'],
+            ).get_s3_client()
         self.botobucket = self.s3conn.get_bucket(settings.IMAGES_STORE)
 
     @defer.inlineCallbacks
