@@ -4,7 +4,7 @@ from datetime import datetime
 from errors import NoDataInS3Error
 from utils import time_on_statsd, statsd_name
 from txaws.service import AWSServiceRegion
-from txaws.regions import S3_EU_WEST
+from txaws.regions import S3_US
 import boto
 import settings
 import logging
@@ -23,7 +23,8 @@ class S3Downloader(object):
             self.txs3conn = AWSServiceRegion(
                 access_key=settings.AWS_ACCESS_KEY_ID,
                 secret_key=settings.AWS_SECRET_ACCESS_KEY,
-                s3_uri=S3_EU_WEST[0]['endpoint'],
+                s3_uri=S3_US[0]['endpoint'],
+                # s3_uri='https://s3.amazonaws.com',
             ).get_s3_client()
         self.botobucket = self.s3conn.get_bucket(settings.IMAGES_STORE)
 
