@@ -126,7 +126,9 @@ class BobRossEndpoint(resource.Resource):
             return server.NOT_DONE_YET
 
         # Ensure image is a jpeg that is being requested
-        if '.jpeg' not in request.path and '.jpg' not in request.path:
+        # Adding 'support' for .gif and .png files. - aoliveri 2016-11-03
+        # It will "freeze frame" on an animated .gif on the first frame, but will render on resize.
+        if '.jpeg' not in request.path and '.jpg' not in request.path and '.png' not in request.path and '.gif' not in request.path:
             request.setResponseCode(403)
             return ''
 
