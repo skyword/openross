@@ -57,7 +57,17 @@ class BobRossEndpoint(resource.Resource):
             if settings.DEBUG:
                 log.msg("Header Info: %s" % file_path, logLevel=logging.DEBUG)
             request.setHeader('X-Accel-Redirect', '/'+file_path)
-            request.setHeader('Content-Type', 'image/jpeg')
+
+            if '.jpeg' in request.path or '.jpg' in request.path:
+                request.setHeader('Content-Type', 'image/jpeg')
+            elif '.png' in request.path:
+                request.setHeader('Content-Type', 'image/png')
+            elif '.gif' in request.path:
+                request.setHeader('Content-Type', 'image/gif')
+            else:
+                request.setHeader('Content-Type', 'application/octet-stream')
+
+
             request.finish()
 
         def on_error(data):
