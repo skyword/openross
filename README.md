@@ -48,11 +48,11 @@ OpenRoss uses a very simple URL scheme http://host/WIDTH/HEIGHT/MODE/path/to/ima
 
 Width/height pairs can be white listed in the settings file, or the white list can be turned off for internal development use.
 
-OpenRoss comes bundled with 3 modes: crop, resize, and resizecomp.
-Crop does what you think it does, and crops an image into a given size. (No, actually it really doesn't.  It crops it based on the center of the image.  You do not get to pick x1, x2, y1, y2, etc.
-Resize does a simple box resize.
-ResizeComp does a resize, followed by compostiting the image onto a white background---which ensures the image is always an expected size.
-Fullcrop does an actual crop based on user selected values.  Full crop uses http://host/X1/Y1/WIDTH/HEIGHT/fullcrop/path/to/image
+OpenRoss comes bundled with 3 modes: crop, resize, and resizecomp.  Now there's 4!
+* Crop does what you think it does, and crops an image into a given size. (No, actually it really doesn't.  It crops it based on the center of the image.  You do not get to pick x1, x2, y1, y2, etc. See Fullcrop below).
+* Resize does a simple box resize.
+* ResizeComp does a resize, followed by compostiting the image onto a white background---which ensures the image is always an expected size.
+* Fullcrop does an actual crop based on user selected values.  Full crop uses http://host/X1/Y1/WIDTH/HEIGHT/fullcrop/path/to/image
 
 New modes can be added easily in `image_modes.py` and blurring, colourising, desaturation are good starting points if you require them.
 
