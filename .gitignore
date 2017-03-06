@@ -13,3 +13,4 @@ openross/twisted/plugins/dropin.cache
 *.pid
 twistd.log
 MANIFEST.in
+*.iml

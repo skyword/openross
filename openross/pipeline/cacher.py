@@ -30,13 +30,23 @@ class Cacher(object):
             filefront,
             fileend,
         )
-        cache_filename = '%s_%sx%s_%s.%s' % (
-            filefront,
-            payload['width'],
-            payload['height'],
-            payload['mode'],
-            fileend,
-        )
+        if "fullcrop" == payload['mode']:
+            cache_filename = '%s_%sx%s__%sx%s.%s' % (
+                filefront,
+                payload['x1'],
+                payload['y1'],
+                payload['width'],
+                payload['height'],
+                fileend,
+            )
+        else:
+            cache_filename = '%s_%sx%s_%s.%s' % (
+                filefront,
+                payload['width'],
+                payload['height'],
+                payload['mode'],
+                fileend,
+            )
 
         file_cache = os.path.join(filecache_loc, cache_filename)
         web_cache = os.path.join(webcache_loc, cache_filename)
