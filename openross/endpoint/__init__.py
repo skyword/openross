@@ -33,6 +33,29 @@ class BobRossEndpoint(resource.Resource):
 
         return BobRossEndpoint.engine.process_image(payload, **kwargs)
 
+    def _process_image_full(self, image_path, x1, y1, width, height, mode, **kwargs):
+        """ Adds a new image to the resizer engine. Will return deferred """
+
+        if settings.DEBUG:
+            log.msg(
+                'Received new image, url:%s, x:%s, y%s, w:%s, h:%s, m:%s kw:%s' % (
+                    image_path, x1, y1, width, height, mode, kwargs),
+                logLevel=logging.DEBUG
+            )
+
+        payload = {}
+        payload['image_path'] = image_path
+        payload['x1'] = x1
+        payload['y1'] = y1
+        payload['width'] = width
+        payload['height'] = height
+        payload['mode'] = mode
+        payload['timers'] = {}
+        if width == '-1' and height == '-1':
+            payload['skip_resize'] = True
+
+        return BobRossEndpoint.engine.process_image(payload, **kwargs)
+
     def _check_allowed_size(self, width, height, mode):
         """ Check if requested size is in settings """
 
@@ -93,6 +116,8 @@ class BobRossEndpoint(resource.Resource):
             request.setResponseCode(403)
             request.finish()
 
+        x1 = None
+        y1 = None
         width = None
         height = None
         mode = None
@@ -101,7 +126,19 @@ class BobRossEndpoint(resource.Resource):
         if request.path and request.args:
             if ('width' in request.args.keys()
                 and 'height' in request.args.keys()
-                    and 'mode' in request.args.keys()):
+                and 'x1' in request.args.keys()
+                and 'y1' in request.args.keys()
+                and 'mode' in request.args.keys()):
+
+                x1 = request.args.pop('x1')[0]
+                y1 = request.args.pop('y1')[0]
+                width = request.args.pop('width')[0]
+                height = request.args.pop('height')[0]
+                mode = request.args.pop('mode')[0]
+                image_path = request.path
+            elif ('width' in request.args.keys()
+                  and 'height' in request.args.keys()
+                  and 'mode' in request.args.keys()):
 
                 width = request.args.pop('width')[0]
                 height = request.args.pop('height')[0]
@@ -142,7 +179,11 @@ class BobRossEndpoint(resource.Resource):
             request.setResponseCode(403)
             return ''
 
-        d = self._process_image(image_path, width, height, mode, **request.args)
+        if "fullcrop" == mode:
+            d = self._process_image_full(image_path, x1, y1, width, height, mode, **request.args)
+        else:
+            d = self._process_image(image_path, width, height, mode, **request.args)
+
         d.addCallback(on_finish, request)
         d.addErrback(on_error)
         return server.NOT_DONE_YET

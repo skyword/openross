@@ -31,14 +31,14 @@ WEB_CACHE_LOCATION = ''
 
 # Add an image whitelist to stop attacks on service
 USE_WHITELIST = False
-MAX_SIZE = (2000, 2000)
+MAX_SIZE = (5000, 5000)
 IMAGE_WHITELIST_SETTING = [
     ('-1', '-1'),  # For passthrough
     ('72', '72'),
     ('200', '250'),
     ('1024', '768'),
 ]
-IMAGE_QUALITY = 90  # minimise artifacts but keep size down
+IMAGE_QUALITY = 100  # minimise artifacts but keep size down
 
 # Turn the above human readable white list into an efficient lookup table
 IMAGE_WHITELIST = {}
@@ -56,6 +56,7 @@ ALLOWED_MODES = [
     'resizecomp',
     'crop',
     'trimresize',
+    'fullcrop',
 ]
 
 # Health check info - Ensure these are overwritten in your local settings file
@@ -69,6 +70,7 @@ HEALTH_EXPECTED_SIZE = {
     'resizecomp': (1, 1),
     'crop': (1, 1),
     'trimresize': (1, 1),
+    'fullcrop': (1, 1),
 }
 
 # Read settings from ~/.openross.py for private settings such as KEYS

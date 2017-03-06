@@ -5,7 +5,6 @@ import settings
     It will contain a mapping between mode and processing functions
 """
 
-
 _mode_map = {}  # Mode register
 
 
@@ -13,6 +12,9 @@ def process_image_with_mode(img, width, height, mode):
     """ Public way of accessing image processing mode """
     return _mode_map[mode](img, width, height)
 
+def process_fullcrop_with_mode(img, x1, y1, width, height, mode):
+    """ Public way of accessing image fullcrop mode """
+    return _mode_map[mode](img, x1, y1, width, height)
 
 def _register_mode(mode_name, func):
     """ Register a mode with the module """
@@ -75,6 +77,19 @@ def _crop(img, width, height):
     return img
 
 
+def _fullcrop(img, x1, y1, width, height):
+    """ This:
+            Does an actual functional real crop.
+            Baffled as to why this mode wasn't included in the original.
+            It's what Bob Ross would have wanted.
+        Mode key: 'fullcrop'
+    """
+
+    img.crop(x1, y1, width, height)
+
+    return img
+
+
 def _trim_resize(img, width, height):
     """ This:
           First performs a trim on the image with no color fuzz
@@ -104,6 +119,7 @@ _register_mode('resize', _resize)
 _register_mode('resizecomp', _resizecomp)
 _register_mode('crop', _crop)
 _register_mode('trimresize', _trim_resize)
+_register_mode('fullcrop', _fullcrop)
 
 for mode_name, mode_handler in settings.CUSTOM_IMAGE_MODES.items():
     _register_mode(mode_name, mode_handler)
