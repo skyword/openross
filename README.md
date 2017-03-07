@@ -28,7 +28,7 @@ As this was so useful for us, we have decided to open source our solution as Ope
 2. Setup a virtual environment (optional).
 3. Run `pip install -e .`
 4. Change directory into the inner `openross` directory.
-5. Add your AWS credentials and directory paths to `~/settings.py`
+5. Add your AWS credentials and directory paths to `~/.openross.py`
 ```python
 AWS_ACCESS_KEY_ID = "MYKEYID"
 AWS_SECRET_ACCESS_KEY = "MYSECRETKEY"
